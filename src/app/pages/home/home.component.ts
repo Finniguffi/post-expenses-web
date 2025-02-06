@@ -1,11 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { BalanceContextService } from '../../services/authenticated/balance/balance.context';
+import { BalanceDisplayComponent } from '../../components/balance-display/balance-display.component';
 
 @Component({
   selector: 'app-home',
-  imports: [],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrls: ['./home.component.css'],
+  standalone: true,
+  imports: [BalanceDisplayComponent]
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+  balance: number = 0;
 
+  constructor(private balanceContextService: BalanceContextService) {}
+
+  ngOnInit(): void {
+    this.balanceContextService.balance$.subscribe({
+      next: (balance) => {
+        if (balance !== null) {
+          this.balance = balance;
+        }
+      },
+      error: (err) => console.error('Failed to fetch balance:', err),
+    });
+  }
 }

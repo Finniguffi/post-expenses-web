@@ -1,0 +1,49 @@
+.balance-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+  }
+  
+  .balance-number {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  .inline-wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  .toggle-wrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  
+  .balance-label {
+    font-size: 1rem;
+    color: var(--primary-color);
+    margin-right: 1rem;
+    font-weight: bold;
+  }
+  
+  .toggle-icon {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+  
+  .balance-icon {
+    color: var(--primary-color);
+    transform: translateY(7.5%);
+    margin-left: 0.7rem;
+  }
+  
+  .toggle-label {
+    font-size: 0.875rem;
+    color: var(--primary-color);
+  }

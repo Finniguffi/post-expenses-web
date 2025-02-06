@@ -5,6 +5,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { LoginRequest, LoginResponse } from '../model/auth.model';
 import { SCREENS } from '../utils/constants';
+import { EMAIL_KEY, TOKEN_KEY } from '../utils/cookies';
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +13,6 @@ import { SCREENS } from '../utils/constants';
 export class AuthContextService {
   private authStateSubject = new BehaviorSubject<LoginResponse | null>(null);
   authState$: Observable<LoginResponse | null> = this.authStateSubject.asObservable();
-
-  private readonly TOKEN_KEY = 'auth_token';
 
   constructor(
     private authService: AuthService,
@@ -40,6 +39,7 @@ export class AuthContextService {
           const loginResponse: LoginResponse = { token: response };
           this.authStateSubject.next(loginResponse);
           this.setTokenInCookies(response);
+          this.setEmailInCookies(credentials.email);
           observer.next(loginResponse);
           observer.complete();
         },
@@ -53,6 +53,7 @@ export class AuthContextService {
   logout(): void {
     this.authStateSubject.next(null);
     this.clearTokenFromCookies();
+    this.clearEmailFromCookies();
     this.router.navigate([`/${SCREENS.LOGIN}`]);
   }
 
@@ -67,14 +68,24 @@ export class AuthContextService {
   private setTokenInCookies(token: string): void {
     const expires = new Date();
     expires.setDate(expires.getDate() + 1); // Set cookie to expire in 1 day
-    this.cookieService.set(this.TOKEN_KEY, token, expires);
+    this.cookieService.set(TOKEN_KEY, token, expires);
   }
 
   private getTokenFromCookies(): string | null {
-    return this.cookieService.get(this.TOKEN_KEY) || null;
+    return this.cookieService.get(TOKEN_KEY) || null;
   }
 
   private clearTokenFromCookies(): void {
-    this.cookieService.delete(this.TOKEN_KEY);
+    this.cookieService.delete(TOKEN_KEY);
+  }
+
+  private setEmailInCookies(email: string): void {
+    const expires = new Date();
+    expires.setDate(expires.getDate() + 1); // Set cookie to expire in 1 day
+    this.cookieService.set(EMAIL_KEY, email, expires);
+  }
+
+  private clearEmailFromCookies(): void {
+    this.cookieService.delete(EMAIL_KEY);
   }
 }

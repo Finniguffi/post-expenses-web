@@ -1,0 +1,12 @@
+<div class="balance-container">
+    <div class="balance-number" [@toggleBalance]="showBalance ? 'visible' : 'hidden'">{{ balance | currency }}</div>
+    <div class="inline-wrapper">
+      <div class="balance-label">Saldo</div>
+      <div class="toggle-wrapper">
+        <span class="toggle-label">Mostrar/Esconder Saldo</span>
+        <span class="toggle-icon" (click)="toggleBalanceVisibility()">
+            <lucide-angular [img]="showBalance ? EyeOff : Eye" class="balance-icon"></lucide-angular>
+        </span>
+      </div>
+    </div>
+  </div>
