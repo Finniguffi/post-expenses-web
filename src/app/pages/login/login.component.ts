@@ -31,11 +31,11 @@ export class LoginComponent {
 
   login() {
     this.authContextService.login(this.credentials).subscribe({
-      next: (response) => {
+      next: () => {
         this.redirectToHome();
         this.toastService.show('Login successful!');
       },
-      error: (error) => {
+      error: () => {
         this.errorMessage = 'Invalid username or password';
         this.toastService.show(this.errorMessage);
       },
