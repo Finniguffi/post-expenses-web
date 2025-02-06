@@ -1,12 +1,12 @@
 <div class="login-container">
-    <h2>Login</h2>
+    <h2>Entrar</h2>
+    <app-inline-message *ngIf="errorMessage" [message]="errorMessage" variant="error"></app-inline-message>
     <form (ngSubmit)="login()">
       <app-input type="email" id="email" label="Email" [(ngModel)]="credentials.email" name="email"></app-input>
       <app-input type="password" id="password" label="Password" [(ngModel)]="credentials.password" name="password"></app-input>
       <app-button type="submit" label="Login"></app-button>
-      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
     </form>
     
     <!-- Auxiliar component -->
     <app-toast></app-toast>
-  </div>
+</div>
