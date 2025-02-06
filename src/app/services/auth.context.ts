@@ -4,6 +4,7 @@ import { AuthService } from './auth.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { LoginRequest, LoginResponse } from '../model/auth.model';
+import { SCREENS } from '../utils/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -22,14 +23,14 @@ export class AuthContextService {
     const token = this.getTokenFromCookies();
     if (token) {
       this.authStateSubject.next({ token });
-      this.router.navigate(['/home']);
+      this.router.navigate([`/${SCREENS.HOME}`]);
     }
   }
 
   login(credentials: LoginRequest): Observable<LoginResponse> {
     const token = this.getTokenFromCookies();
     if (token) {
-      this.router.navigate(['/home']);
+      this.router.navigate([`/${SCREENS.HOME}`]);
       return of({ token });
     }
 
@@ -52,7 +53,7 @@ export class AuthContextService {
   logout(): void {
     this.authStateSubject.next(null);
     this.clearTokenFromCookies();
-    this.router.navigate(['/login']);
+    this.router.navigate([`/${SCREENS.LOGIN}`]);
   }
 
   isAuthenticated(): boolean {

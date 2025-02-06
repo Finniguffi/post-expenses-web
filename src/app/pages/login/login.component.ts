@@ -6,7 +6,7 @@ import { AuthContextService } from '../../services/auth.context';
 import { LoginRequest } from '../../model/auth.model';
 import { ToastComponent } from '../../components/toast/toast.component';
 import { Router } from '@angular/router';
-import { SCREENS } from '../../utils/constants';
+import { ERROR_MESSAGES, SCREENS, SUCCESSFUL_MESSAGES } from '../../utils/constants';
 
 @Component({
   selector: 'app-login',
@@ -33,10 +33,10 @@ export class LoginComponent {
     this.authContextService.login(this.credentials).subscribe({
       next: () => {
         this.redirectToHome();
-        this.toastService.show('Login successful!');
+        this.toastService.show(SUCCESSFUL_MESSAGES.LOGIN);
       },
       error: () => {
-        this.errorMessage = 'Invalid username or password';
+        this.errorMessage = ERROR_MESSAGES.INVALID_CREDENTIALS;
         this.toastService.show(this.errorMessage);
       },
     });
