@@ -5,6 +5,8 @@ import { ToastService } from '../../services/toast.service';
 import { AuthContextService } from '../../services/auth.context';
 import { LoginRequest } from '../../model/auth.model';
 import { ToastComponent } from '../../components/toast/toast.component';
+import { InputComponent } from '../../components/input/input.component';
+import { ButtonComponent } from '../../components/button/button.component';
 import { Router } from '@angular/router';
 import { ERROR_MESSAGES, SCREENS, SUCCESSFUL_MESSAGES } from '../../utils/constants';
 
@@ -13,7 +15,7 @@ import { ERROR_MESSAGES, SCREENS, SUCCESSFUL_MESSAGES } from '../../utils/consta
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
   standalone: true,
-  imports: [FormsModule, CommonModule, ToastComponent],
+  imports: [FormsModule, CommonModule, ToastComponent, InputComponent, ButtonComponent],
 })
 export class LoginComponent {
   credentials: LoginRequest = { email: '', password: '' };

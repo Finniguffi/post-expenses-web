@@ -1,15 +1,9 @@
 <div class="login-container">
     <h2>Login</h2>
     <form (ngSubmit)="login()">
-      <div>
-        <label for="email">Email</label>
-        <input type="email" id="email" [(ngModel)]="credentials.email" name="email" required />
-      </div>
-      <div>
-        <label for="password">Password</label>
-        <input type="password" id="password" [(ngModel)]="credentials.password" name="password" required />
-      </div>
-      <button type="submit">Login</button>
+      <app-input type="email" id="email" label="Email" [(ngModel)]="credentials.email" name="email"></app-input>
+      <app-input type="password" id="password" label="Password" [(ngModel)]="credentials.password" name="password"></app-input>
+      <app-button type="submit" label="Login"></app-button>
       <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
     </form>
     

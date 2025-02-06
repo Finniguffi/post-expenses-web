@@ -4,9 +4,9 @@ export const SCREENS = {
 };
 
 export const ERROR_MESSAGES = {
-    INVALID_CREDENTIALS: 'Invalid username or password',
+    INVALID_CREDENTIALS: 'Seu e-mail ou senha estão incorretos.',
 }
 
 export const SUCCESSFUL_MESSAGES = {
-    LOGIN: 'Login successful!',
+    LOGIN: 'Você entrou!',
 }
