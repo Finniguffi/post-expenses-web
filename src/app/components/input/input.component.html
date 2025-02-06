@@ -1,4 +1,18 @@
 <div class="input-container">
-    <label [for]="id">{{ label }}</label>
-    <input [type]="type" [id]="id" [(ngModel)]="model" [name]="name" required />
+  <label [for]="id">{{ label }}</label>
+  <div class="input-wrapper">
+    <input
+      [type]="inputType"
+      [id]="id"
+      [name]="name"
+      [(ngModel)]="value"
+      (ngModelChange)="onChange($event)"
+      (blur)="onTouched()"
+      required
+    />
+    <span *ngIf="type === 'password'" class="toggle-password" (click)="togglePasswordVisibility()">
+      <lucide-angular [img]="Eye" class="password-icon" *ngIf="!isPasswordVisible"></lucide-angular>
+      <lucide-angular [img]="EyeOff" class="password-icon" *ngIf="isPasswordVisible"></lucide-angular>
+    </span>
+  </div>
 </div>
