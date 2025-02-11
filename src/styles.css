@@ -4,6 +4,8 @@
   --primary-color: #000000;
   --secondary-color: #ffffff;
   --error-color: #ff0000;
+  --expense-color: #ff0000;
+  --earning-color: #008000;
   --default-font: "Montserrat", serif;
   --border-radius: 0.5rem;
 }

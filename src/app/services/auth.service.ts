@@ -16,4 +16,9 @@ export class AuthService extends BaseHttpService {
     const path = '/auth/login';
     return this.post<string>(path, credentials, { responseType: 'text' });
   }
+
+  validateToken(token: String): Observable<string> {
+    const path = '/auth/login';
+    return this.get<string>(path);
+  }
 }

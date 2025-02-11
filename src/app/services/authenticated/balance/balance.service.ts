@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { BaseHttpServiceAuthenticated } from '../base-http-authenticated';
-import { CookieService } from 'ngx-cookie-service';
+import { BaseHttpService } from '../../base-http.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class BalanceService extends BaseHttpServiceAuthenticated {
-  constructor(protected override http: HttpClient, protected override cookieService: CookieService) {
-    super(http, cookieService);
+export class BalanceService extends BaseHttpService {
+  constructor(protected override http: HttpClient) {
+    super(http);
   }
 
   getBalance(email: string): Observable<number> {

@@ -4,6 +4,9 @@ import { catchError } from 'rxjs/operators';
 import { BalanceService } from './balance.service';
 import { CookieService } from 'ngx-cookie-service';
 import { EMAIL_KEY } from '../../../utils/cookies';
+import { ERROR_MESSAGES, INFO_MESSAGES, SCREENS } from '../../../utils/constants';
+import { Router } from '@angular/router';
+import { ToastService } from '../../toast.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,19 +15,32 @@ export class BalanceContextService {
   private balanceSubject = new BehaviorSubject<number | null>(null);
   balance$: Observable<number | null> = this.balanceSubject.asObservable();
 
-  constructor(private balanceService: BalanceService, private cookieService: CookieService) {
+  constructor(
+    private balanceService: BalanceService,
+    private cookieService: CookieService,
+    private router: Router,
+    private toastService: ToastService
+  ) {
     const email = this.getEmailFromCookies();
     if (email) {
       this.fetchBalance(email).subscribe({
         next: (balance) => {
           this.balanceSubject.next(balance);
         },
-        error: (err) => console.error('Failed to fetch balance:', err),
+        error: (err) => {
+          this.toastService.show('Failed to fetch balance');
+          console.error('Failed to fetch balance:', err);
+        },
       });
     } else {
-      console.error('Email not found in cookies');
+      this.navigateToLogin();
+      this.toastService.show(INFO_MESSAGES.SESSION_EXPIRED);
     }
   }
+
+  private navigateToLogin = () => {
+    this.router.navigate([`/${SCREENS.LOGIN}`]);
+  };
 
   private getEmailFromCookies(): string | null {
     return this.cookieService.get(EMAIL_KEY) || null;
@@ -37,6 +53,7 @@ export class BalanceContextService {
   }
 
   private handleError(error: any): Observable<never> {
+    this.toastService.show('Something went wrong; please try again later.');
     console.error('An error occurred:', error);
     return throwError(() => new Error('Something went wrong; please try again later.'));
   }

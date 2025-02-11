@@ -1,3 +1,23 @@
 .container {
     margin: 1.2rem;
 }
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.button-container app-button {
+    flex: 1;
+    margin: 0 0.5rem;
+}
+
+.button-container app-button:first-child {
+    margin-left: 0;
+}
+
+.button-container app-button:last-child {
+    margin-right: 0;
+}

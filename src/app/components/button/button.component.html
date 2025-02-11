@@ -1,1 +1,9 @@
-<button [type]="type" class="btn">{{ label }}</button>
+<button [type]="type" [ngClass]="variant" class="btn">
+    {{ label }}
+    <ng-container *ngIf="variant === 'expenses'">
+      <lucide-angular [img]="MinusCircle" class="icon"></lucide-angular>
+    </ng-container>
+    <ng-container *ngIf="variant === 'earnings'">
+      <lucide-angular [img]="DollarSign" class="icon"></lucide-angular>
+    </ng-container>
+</button>

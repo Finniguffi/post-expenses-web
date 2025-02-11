@@ -26,6 +26,14 @@ export class AuthContextService {
     }
   }
 
+  private redirectToHome = () => {
+    this.router.navigate([`/${SCREENS.HOME}`]);
+  };
+
+  private validateToken = (token: string) => {
+    this.router.navigate([`/${SCREENS.HOME}`]);
+  };
+
   login(credentials: LoginRequest): Observable<LoginResponse> {
     const token = this.getTokenFromCookies();
     if (token) {
