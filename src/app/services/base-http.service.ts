@@ -17,30 +17,37 @@ export class BaseHttpService {
     return throwError(() => new Error('Something went wrong; please try again later.'));
   }
 
-  protected get<T>(path: string, headers: { [key: string]: string } = {}): Observable<T> {
-    const httpHeaders = new HttpHeaders(headers);
-    return this.http.get<T>(`${this.apiUrl}${path}`, { headers: httpHeaders }).pipe(
+  protected getDefaultHeaders(headers: { [key: string]: string } = {}): HttpHeaders {
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      ...headers,
+    });
+  }
+
+  protected get<T>(path: string, options: { headers?: { [key: string]: string }, responseType?: 'json' | 'text' } = {}): Observable<T> {
+    const httpHeaders = this.getDefaultHeaders(options.headers || {});
+    return this.http.get<T>(`${this.apiUrl}${path}`, { headers: httpHeaders, responseType: options.responseType as 'json' }).pipe(
       catchError(this.handleError)
     );
   }
 
-  protected post<T>(path: string, body: unknown, headers: { [key: string]: string } = {}): Observable<T> {
-    const httpHeaders = new HttpHeaders(headers);
-    return this.http.post<T>(`${this.apiUrl}${path}`, body, { headers: httpHeaders }).pipe(
+  protected post<T>(path: string, body: unknown, options: { headers?: { [key: string]: string }, responseType?: 'json' | 'text' } = {}): Observable<T> {
+    const httpHeaders = this.getDefaultHeaders(options.headers || {});
+    return this.http.post<T>(`${this.apiUrl}${path}`, body, { headers: httpHeaders, responseType: options.responseType as 'json' }).pipe(
       catchError(this.handleError)
     );
   }
 
-  protected put<T>(path: string, body: unknown, headers: { [key: string]: string } = {}): Observable<T> {
-    const httpHeaders = new HttpHeaders(headers);
-    return this.http.put<T>(`${this.apiUrl}${path}`, body, { headers: httpHeaders }).pipe(
+  protected put<T>(path: string, body: unknown, options: { headers?: { [key: string]: string }, responseType?: 'json' | 'text' } = {}): Observable<T> {
+    const httpHeaders = this.getDefaultHeaders(options.headers || {});
+    return this.http.put<T>(`${this.apiUrl}${path}`, body, { headers: httpHeaders, responseType: options.responseType as 'json' }).pipe(
       catchError(this.handleError)
     );
   }
 
-  protected delete<T>(path: string, headers: { [key: string]: string } = {}): Observable<T> {
-    const httpHeaders = new HttpHeaders(headers);
-    return this.http.delete<T>(`${this.apiUrl}${path}`, { headers: httpHeaders }).pipe(
+  protected delete<T>(path: string, options: { headers?: { [key: string]: string }, responseType?: 'json' | 'text' } = {}): Observable<T> {
+    const httpHeaders = this.getDefaultHeaders(options.headers || {});
+    return this.http.delete<T>(`${this.apiUrl}${path}`, { headers: httpHeaders, responseType: options.responseType as 'json' }).pipe(
       catchError(this.handleError)
     );
   }

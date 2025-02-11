@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BaseHttpService } from './base-http.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LoginRequest } from '../model/auth.model';
 
@@ -8,12 +8,12 @@ import { LoginRequest } from '../model/auth.model';
   providedIn: 'root',
 })
 export class AuthService extends BaseHttpService {
-  constructor(http: HttpClient) {
+  constructor(protected override http: HttpClient) {
     super(http);
   }
 
   login(credentials: LoginRequest): Observable<string> {
-    const httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post(`${this.apiUrl}/auth/login`, credentials, { headers: httpHeaders, responseType: 'text' });
+    const path = '/auth/login';
+    return this.post<string>(path, credentials, { responseType: 'text' });
   }
 }

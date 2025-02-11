@@ -40,6 +40,7 @@ export class AuthContextService {
           this.authStateSubject.next(loginResponse);
           this.setTokenInCookies(response);
           this.setEmailInCookies(credentials.email);
+          console.log('Email set in cookies:', credentials.email); // Debugging log
           observer.next(loginResponse);
           observer.complete();
         },

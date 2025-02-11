@@ -14,8 +14,7 @@ import { LucideAngularModule, Eye, EyeOff } from 'lucide-angular';
     trigger('toggleBalance', [
       state('hidden', style({
         opacity: 0,
-        height: '0px',
-        overflow: 'hidden'
+        height: '0px'
       })),
       state('visible', style({
         opacity: 1,

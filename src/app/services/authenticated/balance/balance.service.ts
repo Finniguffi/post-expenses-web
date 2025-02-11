@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { BACKEND_URL } from '../../../utils/environment';
+import { HttpClient } from '@angular/common/http';
+import { BaseHttpServiceAuthenticated } from '../base-http-authenticated';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class BalanceService {
-  private apiUrl = BACKEND_URL;
-
-  constructor(private http: HttpClient) {}
+export class BalanceService extends BaseHttpServiceAuthenticated {
+  constructor(protected override http: HttpClient, protected override cookieService: CookieService) {
+    super(http, cookieService);
+  }
 
   getBalance(email: string): Observable<number> {
-    const url = `${this.apiUrl}/balance/${email}`;
-    const httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.get<number>(url, { headers: httpHeaders });
+    const path = `/balance/${email}`;
+    return this.get<number>(path);
   }
 }
