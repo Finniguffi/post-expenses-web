@@ -17,7 +17,6 @@ export class BalanceContextService {
     if (email) {
       this.fetchBalance(email).subscribe({
         next: (balance) => {
-          console.log('Fetched balance:', balance);
           this.balanceSubject.next(balance);
         },
         error: (err) => console.error('Failed to fetch balance:', err),
